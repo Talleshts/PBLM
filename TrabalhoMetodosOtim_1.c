@@ -6,30 +6,30 @@
 typedef struct {
     int task;
     int machine;
-} Assignment;
+} Tarefa;
 
 void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_TASKS], int* precedence[MAX_TASKS]) {
     // Implemente a leitura do arquivo de instância aqui
     // Extraia o número de tarefas, tempos de execução e precedências
 }
 
-void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Assignment solution[MAX_TASKS]) {
+void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solucao[MAX_TASKS]) {
     // Implemente a criação da solução inicial aqui
 }
 
-int calculaMakespan(int numeroMaquinas, Assignment solution[MAX_TASKS]) {
+int calculaMakespan(int numeroMaquinas, Tarefa solucao[MAX_TASKS]) {
     // Implemente o cálculo do makespan aqui
 }
 
-void writeSolution(const char* nomeArquivo, int numeroMaquinas, Assignment solution[MAX_TASKS]) {
+void writesolucao(const char* nomeArquivo, int numeroMaquinas, Tarefa solucao[MAX_TASKS]) {
     // Implemente a escrita da solução em arquivo aqui
 }
 
-void printSolution(int numeroMaquinas, Assignment solution[MAX_TASKS]) {
+void printsolucao(int numeroMaquinas, Tarefa solucao[MAX_TASKS]) {
     // Implemente a impressão da solução na tela aqui
 }
 
-void applyLocalSearch(int numeroMaquinas, Assignment solution[MAX_TASKS]) {
+void applyLocalSearch(int numeroMaquinas, Tarefa solucao[MAX_TASKS]) {
     // Implemente a busca local aqui
 }
 
@@ -40,16 +40,16 @@ int main() {
 
     readInstance("input.txt", &numeroTasks, tempoTask, precedence);
 
-    Assignment solucaoInicial[MAX_TASKS];
+    Tarefa solucaoInicial[MAX_TASKS];
     createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
 
     applyLocalSearch(numeroMaquinas, solucaoInicial);
 
     int bestMakespan = calculaMakespan(numeroMaquinas, solucaoInicial);
 
-    writeSolution("output.txt", numeroMaquinas, solucaoInicial);
+    writesolucao("output.txt", numeroMaquinas, solucaoInicial);
 
-    printSolution(numeroMaquinas, solucaoInicial);
+    printsolucao(numeroMaquinas, solucaoInicial);
 
     return 0;
 }
