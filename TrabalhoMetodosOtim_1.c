@@ -11,6 +11,34 @@ typedef struct {
 void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_TASKS], int* precedence[MAX_TASKS]) {
     // Implemente a leitura do arquivo de instância aqui
     // Extraia o número de tarefas, tempos de execução e precedências
+    FILE* arquivo = fopen("KILBRID.IN2", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        exit(1);
+    }
+
+    fscanf(arquivo, "%d", numeroTasks); // Lê o número de tarefas
+
+    // Lê os tempos de execução das tarefas
+    for (int i = 0; i < *numeroTasks; i++) {
+        fscanf(arquivo, "%d", &tempoTask[i]);
+    }
+
+    // Lê as relações de precedência
+    int i = 0;
+    while (1) {
+        int task1, task2;
+        fscanf(arquivo, "%d,%d", &task1, &task2);
+        if (task1 == -1 && task2 == -1) {
+            break; // Marca de fim da instância
+        }
+        // Cria um array dinâmico para armazenar as precedências da tarefa i
+        precedence[i] = malloc((*numeroTasks) * sizeof(int));
+        precedence[i][task2] = 1; // Tarefa task1 precede tarefa task2
+        i++;
+    }
+
+    fclose(arquivo);
 }
 
 void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solucao[MAX_TASKS]) {
@@ -38,18 +66,18 @@ int main() {
     int tempoTask[MAX_TASKS];
     int *precedence[MAX_TASKS];
 
-    readInstance("input.txt", &numeroTasks, tempoTask, precedence);
+    readInstance("KILBRID.IN2", &numeroTasks, tempoTask, precedence);
 
     Tarefa solucaoInicial[MAX_TASKS];
     createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
 
-    applyLocalSearch(numeroMaquinas, solucaoInicial);
+    //applyLocalSearch(numeroMaquinas, solucaoInicial);
 
-    int bestMakespan = calculaMakespan(numeroMaquinas, solucaoInicial);
+    //int bestMakespan = calculaMakespan(numeroMaquinas, solucaoInicial);
 
-    writesolucao("output.txt", numeroMaquinas, solucaoInicial);
+    //writesolucao("output.txt", numeroMaquinas, solucaoInicial);
 
-    printsolucao(numeroMaquinas, solucaoInicial);
+    //printsolucao(numeroMaquinas, solucaoInicial);
 
     return 0;
 }
