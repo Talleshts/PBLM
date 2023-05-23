@@ -30,6 +30,14 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
         for (int j = 0; j < *numeroTasks; j++) {
             precedence[i][j] = 0;
         }
+    // Lê as relações de precedência
+    int i = 0;
+
+    for (i = 0; i < MAX_TASKS; i++) {
+        for(int j = 0; j < MAX_TASKS; j++){
+            precedence[i][j] = 0;
+        }
+        //precedence[i] = malloc(MAX_TASKS * sizeof(int));
     }
 
     // Lê as relações de precedência entre as tarefas
@@ -44,9 +52,17 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
         precedence[task1][task2] = 1; // Tarefa task1 precede tarefa task2
     }
 
+    for (i = 0; i < MAX_TASKS; i++) {
+        for(int j = 0; j < MAX_TASKS; j++){
+            printf("|%d ", precedence[i][j]);
+        }
+        printf("\n");
+    }
+
     fclose(arquivo);
 }
 
+/*
 void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solucao[MAX_TASKS]) {
     // Implemente a criação da solução inicial aqui
     int i;
@@ -190,7 +206,7 @@ void applyLocalSearch(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
         }
     }
 }
-
+*/
 
 int main() {
     int numeroTasks;
@@ -207,6 +223,15 @@ int main() {
         printf("\n");
     }
 
+
+    //Tarefa solucaoInicial[MAX_TASKS];
+    //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
+
+    //applyLocalSearch(numeroTasks, solucaoInicial);
+
+    //int bestMakespan = calculaMakespan(numeroTasks, solucaoInicial);
+
+    //writesolucao("output.txt", numeroTasks, solucaoInicial);
 
     //Tarefa solucaoInicial[MAX_TASKS];
     //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
