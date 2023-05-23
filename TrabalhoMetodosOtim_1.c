@@ -25,6 +25,16 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
         fscanf(arquivo, "%d", &tempoTask[i]);
     }
 
+<<<<<<< HEAD
+    // Lê as relações de precedência
+    int i = 0;
+
+    for (i = 0; i < MAX_TASKS; i++) {
+        for(int j = 0; j < MAX_TASKS; j++){
+            precedence[i][j] = 0;
+        }
+        //precedence[i] = malloc(MAX_TASKS * sizeof(int));
+=======
     // Inicializa a matriz de precedências com zeros
     for (int i = 0; i < *numeroTasks; i++) {
         for (int j = 0; j < *numeroTasks; j++) {
@@ -38,6 +48,7 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
             precedence[i][j] = 0;
         }
         //precedence[i] = malloc(MAX_TASKS * sizeof(int));
+>>>>>>> d2e9570800099159273407ae8a74b10ebd57404f
     }
 
     // Lê as relações de precedência entre as tarefas
@@ -215,15 +226,7 @@ int main() {
 
     readInstance("KILBRID.IN2", &numeroTasks, tempoTask, precedence);
 
-    // Imprime os dados da instância para teste
-    for (int i = 0; i < numeroTasks; i++) {
-        for (int j = 0; j < numeroTasks; j++) {
-            printf("| %d", precedence[i][j]);
-        }
-        printf("\n");
-    }
-
-
+<<<<<<< HEAD
     //Tarefa solucaoInicial[MAX_TASKS];
     //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
 
@@ -232,6 +235,16 @@ int main() {
     //int bestMakespan = calculaMakespan(numeroTasks, solucaoInicial);
 
     //writesolucao("output.txt", numeroTasks, solucaoInicial);
+
+=======
+    // Imprime os dados da instância para teste
+    for (int i = 0; i < numeroTasks; i++) {
+        for (int j = 0; j < numeroTasks; j++) {
+            printf("| %d", precedence[i][j]);
+        }
+        printf("\n");
+    }
+
 
     //Tarefa solucaoInicial[MAX_TASKS];
     //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
