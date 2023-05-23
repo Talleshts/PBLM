@@ -8,7 +8,7 @@ typedef struct {
     int tempo;
 } Tarefa;
 
-void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_TASKS], int* precedence[MAX_TASKS][MAX_TASKS]) {
+void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_TASKS], int precedence[MAX_TASKS][MAX_TASKS]) {
     // Implemente a leitura do arquivo de instância aqui
     // Extraia o número de tarefas, tempos de execução e precedências
     FILE* arquivo = fopen(nomeArquivo, "r");
@@ -27,9 +27,12 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
     // Lê as relações de precedência
     int i = 0;
 
-    //for (i = 0; i < MAX_TASKS; i++) {
-    //    precedence[i] = malloc(MAX_TASKS * sizeof(int));
-    //}
+    for (i = 0; i < MAX_TASKS; i++) {
+        for(int j = 0; j < MAX_TASKS; j++){
+            precedence[i][j] = 0;
+        }
+        //precedence[i] = malloc(MAX_TASKS * sizeof(int));
+    }
 
     while (1) {
         int task1, task2;
@@ -42,9 +45,17 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
         precedence[task1][task2] = 1; // Tarefa task1 precede tarefa task2
     }
 
+    for (i = 0; i < MAX_TASKS; i++) {
+        for(int j = 0; j < MAX_TASKS; j++){
+            printf("|%d ", precedence[i][j]);
+        }
+        printf("\n");
+    }
+
     fclose(arquivo);
 }
 
+/*
 void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solucao[MAX_TASKS]) {
     // Implemente a criação da solução inicial aqui
     int i;
@@ -188,7 +199,7 @@ void applyLocalSearch(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
         }
     }
 }
-
+*/
 
 int main() {
     int numeroTasks;
@@ -197,16 +208,16 @@ int main() {
 
     readInstance("KILBRID.IN2", &numeroTasks, tempoTask, &precedence);
 
-    Tarefa solucaoInicial[MAX_TASKS];
-    createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
+    //Tarefa solucaoInicial[MAX_TASKS];
+    //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
 
-    applyLocalSearch(numeroTasks, solucaoInicial);
+    //applyLocalSearch(numeroTasks, solucaoInicial);
 
-    int bestMakespan = calculaMakespan(numeroTasks, solucaoInicial);
+    //int bestMakespan = calculaMakespan(numeroTasks, solucaoInicial);
 
-    writesolucao("output.txt", numeroTasks, solucaoInicial);
+    //writesolucao("output.txt", numeroTasks, solucaoInicial);
 
-    printsolucao(numeroTasks, solucaoInicial);
+    //printsolucao(numeroTasks, solucaoInicial);
 
     return 0;
 }
