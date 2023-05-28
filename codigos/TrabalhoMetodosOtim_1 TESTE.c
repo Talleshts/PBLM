@@ -101,5 +101,14 @@ int main() {
 
     printsolucao(numeroTasks, solucaoInicial);
 
+    /* Imprime os dados da instância para teste
+    for (int i = 1; i < numeroTasks; i++) {
+        for (int j = 1; j < numeroTasks; j++) {
+            printf("| %d", precedence[i][j]);
+        }
+        printf("\n");
+    }
+    */
+
     return 0;
 }
