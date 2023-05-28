@@ -25,30 +25,12 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
         fscanf(arquivo, "%d", &tempoTask[i]);
     }
 
-<<<<<<< HEAD
-    // Lê as relações de precedência
-    int i = 0;
-
-    for (i = 0; i < MAX_TASKS; i++) {
-        for(int j = 0; j < MAX_TASKS; j++){
-            precedence[i][j] = 0;
-        }
         //precedence[i] = malloc(MAX_TASKS * sizeof(int));
-=======
     // Inicializa a matriz de precedências com zeros
     for (int i = 0; i < *numeroTasks; i++) {
         for (int j = 0; j < *numeroTasks; j++) {
             precedence[i][j] = 0;
         }
-    // Lê as relações de precedência
-    int i = 0;
-
-    for (i = 0; i < MAX_TASKS; i++) {
-        for(int j = 0; j < MAX_TASKS; j++){
-            precedence[i][j] = 0;
-        }
-        //precedence[i] = malloc(MAX_TASKS * sizeof(int));
->>>>>>> d2e9570800099159273407ae8a74b10ebd57404f
     }
 
     // Lê as relações de precedência entre as tarefas
@@ -63,19 +45,10 @@ void readInstance(const char* nomeArquivo, int* numeroTasks, int tempoTask[MAX_T
         precedence[task1][task2] = 1; // Tarefa task1 precede tarefa task2
     }
 
-    for (i = 0; i < MAX_TASKS; i++) {
-        for(int j = 0; j < MAX_TASKS; j++){
-            printf("|%d ", precedence[i][j]);
-        }
-        printf("\n");
-    }
-
     fclose(arquivo);
 }
 
-/*
 void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solucao[MAX_TASKS]) {
-    // Implemente a criação da solução inicial aqui
     int i;
 
     // Ordenar as tarefas por tempo de execução em ordem decrescente
@@ -96,15 +69,17 @@ void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solu
     }
 
     // Alocar as tarefas sequencialmente nas máquinas
-    int numtasks = 3; // Número de máquinas (definido manualmente neste exemplo)
+    //int numtasks = 3; // Número de máquinas (definido manualmente neste exemplo)
     int taskAtual = 0;
 
     for (i = 0; i < numeroTasks; i++) {
         solucao[i].task = taskAtual;
-        taskAtual = (taskAtual + 1) % numtasks; // Alternar para a próxima máquina
+        taskAtual = (taskAtual + 1) % numeroTasks; // Alternar para a próxima máquina
     }
 }
 
+
+/*
 int calculaMakespan(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
     // Implemente o cálculo do makespan aqui
     int makespan[MAX_TASKS] = {0}; // Inicializa o makespan de cada máquina como 0
@@ -153,6 +128,7 @@ void writesolucao(const char* nomeArquivo, int numeroTasks, Tarefa solucao[MAX_T
     fclose(arquivo);
 }
 
+*/
 void printsolucao(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
     printf("Solucao:\n");
     int i;
@@ -168,10 +144,10 @@ void printsolucao(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
             printf("\n");
         }
     }
-    int makespan = calculaMakespan(numeroTasks, solucao);
-    printf("Makespan: %d\n", makespan);
+    /*int makespan = calculaMakespan(numeroTasks, solucao);
+    printf("Makespan: %d\n", makespan);*/
 }
-
+/*
 void applyLocalSearch(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
     int i, j;
 
@@ -207,8 +183,6 @@ void applyLocalSearch(int numeroTasks, Tarefa solucao[MAX_TASKS]) {
         }
     }
 }
-
-
     // Atualiza o array de solução com as tarefas da matriz auxiliar
     int index = 0;
     for (i = 0; i < numeroTasks; i++) {
@@ -225,37 +199,27 @@ int main() {
     int precedence[MAX_TASKS][MAX_TASKS];
 
     readInstance("KILBRID.IN2", &numeroTasks, tempoTask, precedence);
-
-<<<<<<< HEAD
-    //Tarefa solucaoInicial[MAX_TASKS];
-    //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
+    Tarefa solucaoInicial[MAX_TASKS];
+    createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
 
     //applyLocalSearch(numeroTasks, solucaoInicial);
 
     //int bestMakespan = calculaMakespan(numeroTasks, solucaoInicial);
-
     //writesolucao("output.txt", numeroTasks, solucaoInicial);
 
-=======
-    // Imprime os dados da instância para teste
-    for (int i = 0; i < numeroTasks; i++) {
-        for (int j = 0; j < numeroTasks; j++) {
+    /* Imprime os dados da instância para teste
+    for (int i = 1; i < numeroTasks; i++) {
+        for (int j = 1; j < numeroTasks; j++) {
             printf("| %d", precedence[i][j]);
         }
         printf("\n");
     }
+    */
 
-
-    //Tarefa solucaoInicial[MAX_TASKS];
-    //createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
-
-    //applyLocalSearch(numeroTasks, solucaoInicial);
-
-    //int bestMakespan = calculaMakespan(numeroTasks, solucaoInicial);
+    printsolucao(numeroTasks, solucaoInicial);
 
     //writesolucao("output.txt", numeroTasks, solucaoInicial);
 
-    //printsolucao(numeroTasks, solucaoInicial);
 
     return 0;
 }
