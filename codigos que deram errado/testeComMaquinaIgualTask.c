@@ -25,7 +25,7 @@ int main() {
     int numeroMaquinas;
 
     readInstance("instancia.txt", &numeroTasks, tempoTask, precedence);
-    numeroMaquinas = numeroTasks;
+    numeroMaquinas = MAX_MACHINE;
     createsolucaoInicial(numeroTasks, tempoTask, solucaoInicial);
 
     applyLocalSearch(numeroTasks, solucaoInicial);
@@ -94,54 +94,54 @@ void createsolucaoInicial(int numeroTasks, int tempoTask[MAX_TASKS], Tarefa solu
 
     // Atribuir as tarefas ordenadas à solução inicial
     int task = 0;
-    for (i = 0; i < numeroTasks; i++) {
-        for (j = 0; j < tempoTask[i]; j++) {
+    for (i = 0; i < MAX_MACHINE && task < numeroTasks; i++) {  // Limit the loop to MAX_MACHINE and check if task < numeroTasks
+        for (j = 0; j < tempoTask[i] && task < numeroTasks; j++) {  // Check if task < numeroTasks
             solucaoInicial[i][j].task = task;
             solucaoInicial[i][j].tempo = j + 1;
             task++;
         }
-        solucaoInicial[i][tempoTask[i]].task = -1; // Marca o fim da máquina
+        solucaoInicial[i][j].task = -1; // Marca o fim da máquina
     }
 }
 
+
+
 void applyLocalSearch(int numeroTasks, Tarefa tarefasPorTask[MAX_TASKS][MAX_TASKS]) {
-    int i, j;
+    int i, j, k, l, m;
 
     for (i = 0; i < numeroTasks; i++) {
         for (j = 0; j < numeroTasks; j++) {
             if (i != j && tarefasPorTask[i][0].tempo > tarefasPorTask[j][0].tempo) {
-                int k = 0;
+                k = 0;
                 while (tarefasPorTask[i][k].task != -1) {
                     int tempTask = tarefasPorTask[i][k].task;
                     int tempTempo = tarefasPorTask[i][k].tempo;
-                    int l = 0;
-                    while (tarefasPorTask[j][l].task != -1) {
-                        if (tarefasPorTask[i][k].tempo <= tarefasPorTask[j][l].tempo) {
-                            int m = 0;
-                            while (tarefasPorTask[j][m].task != -1) {
-                                if (tarefasPorTask[j][m].task == -1) {
-                                    break;
-                                }
-                                m++;
-                            }
-                            int n = m;
-                            while (n >= l) {
-                                tarefasPorTask[j][n + 1].task = tarefasPorTask[j][n].task;
-                                tarefasPorTask[j][n + 1].tempo = tarefasPorTask[j][n].tempo;
-                                n--;
-                            }
-                            tarefasPorTask[j][l].task = tempTask;
-                            tarefasPorTask[j][l].tempo = tempTempo;
-                            break;
-                        }
+
+                    l = 0;
+                    while (tarefasPorTask[j][l].task != -1 && tarefasPorTask[i][k].tempo > tarefasPorTask[j][l].tempo) {
                         l++;
                     }
+
+                    m = 0;
+                    while (tarefasPorTask[j][m].task != -1) {
+                        m++;
+                    }
+
+                    for (int n = m; n >= l; n--) {
+                        tarefasPorTask[j][n + 1].task = tarefasPorTask[j][n].task;
+                        tarefasPorTask[j][n + 1].tempo = tarefasPorTask[j][n].tempo;
+                    }
+
+                    tarefasPorTask[j][l].task = tempTask;
+                    tarefasPorTask[j][l].tempo = tempTempo;
                     k++;
                 }
             }
         }
     }
 }
+
+
 
 int calculaMakespan(int numeroTasks, Tarefa solucao[MAX_TASKS][MAX_TASKS]) {
     int makespan = 0;
