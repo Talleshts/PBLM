@@ -9,7 +9,7 @@ Dupla: Talles Henrique 2020204803 - Alvaro Moret
 #include <stdlib.h>
 
 #define MAX_TAREFAS 100
-#define MAX_MAQUINAS 4
+#define MAX_MAQUINAS 5
 
 typedef struct {
     int tempo;
@@ -91,6 +91,7 @@ int calcularMakespan(int numeroTarefas, Tarefa tarefas[MAX_TAREFAS], int maquina
             maiorMakespan = temposMaquinas[i];
             maquinaMaiorMakespan = i + 1;
         }
+        printf("maquina :%d = %d\n", i+1, temposMaquinas[i]);
     }
 
     printf("Máquina com o maior makespan: %d\n", maquinaMaiorMakespan);
@@ -123,7 +124,7 @@ void criarArquivoOutput(Tarefa tarefas[MAX_TAREFAS], int maquinas[MAX_MAQUINAS][
 
     fclose(arquivo);
 
-    printf("Arquivo de saída criado com sucesso.\n");
+    printf("\nArquivo de saída criado com sucesso.\n");
 }
 
 void imprimirSolucao(Tarefa tarefas[MAX_TAREFAS], int maquinas[MAX_MAQUINAS][MAX_TAREFAS]) {
@@ -143,7 +144,7 @@ void imprimirSolucao(Tarefa tarefas[MAX_TAREFAS], int maquinas[MAX_MAQUINAS][MAX
 }
 
 int main() {
-    FILE* arquivo = fopen("instancia.txt", "r");
+    FILE* arquivo = fopen("KILBRID.IN2", "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return 1;
